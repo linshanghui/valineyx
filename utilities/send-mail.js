@@ -100,12 +100,12 @@ ${text}
     const scContent = process.env.SERVER_TURBO_MD ? `
 #### ${name} 发表评论：
 
-${$(text.replace(/<img.*?src="(.*?)".*?>/g, "![图片]($1)").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
+${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "![图片]($1)").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
 
 #### [查看评论](${url + '#' + comment.get('objectId')})` : `
 ${name} 发表评论：
 
-${$(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
+${$.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n\n").replace(/\n+$/g, "")}
 
 查看评论: ${url + '#' + comment.get('objectId')}`
     axios({
@@ -145,7 +145,7 @@ ${$(text.replace(/<img.*?src="(.*?)".*?>/g, "\n图片: $1\n").replace(/<br>/g, "
         })
     }
     */
-    const content = text.replace(/<img.*?src="(.*?)".*?>/g, "\n[图片]$1\n").replace(/<br>/g, "\n").replace(/\n+/g, "\n").replace(/\n+$/g, "").replace(/(<p>)|(<\/p>)/g, '')
+    const content = $.load(text.replace(/<img.*?src="(.*?)".*?>/g, "\n[图片]$1\n").replace(/<br>/g, "\n")).text().replace(/\n+/g, "\n").replace(/\n+$/g, "")
     const scContent = `@face=119@您的 ${process.env.SITE_NAME} 上有新评论了！
 @face=183@${name} 发表评论：
 
